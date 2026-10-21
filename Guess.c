@@ -6,7 +6,7 @@
 #include <time.h>
 
 void loading_animation() {
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 3; i++) {
         printf(".");
         fflush(stdout);
         Sleep(1000);
@@ -20,26 +20,44 @@ int generate_random_number() {
     return number;
 }
 
+
 void guess() {
     int default_score = 0;
     int correct_score = 30;
     int new_score = default_score + correct_score;
     int user_guess;
+    int tries = 0;
+    int max_guess = 5;
 
     int correct_number = generate_random_number();
 
     printf("Score: %d\n", default_score);
     printf("[DEBUG] The correct number is: %d\n", correct_number);
-    printf("Your guess: ");
-    scanf("%d", &user_guess);
 
-    if (user_guess == correct_number){
-        printf("The correct number is : %d\n", correct_number);
-        printf("YOU WIN! CONGRATULATION!\n");
-        printf("Your Score: %d", new_score);
-    } else {
-        printf("YOU FAILED TO GUESS THE NUMBER!\n");
-        printf("The correct number is : %d\n", correct_number);
+
+    while (user_guess != correct_number && tries < max_guess) {
+        printf("Your guess: ");
+        scanf("%d", &user_guess);
+        if (user_guess < correct_number) {
+            printf("[HINT] Guess is too low!\n");
+            tries++;
+        } else {
+            printf("[HINT] Guess is too high!\n");
+            tries++;
+        }
+
+        if (user_guess == correct_number) {
+            printf("You Guess the Correct Number in %d tries!\n", tries);
+            printf("You Win!, Congratulations\n");
+            break;
+        } else {
+            printf("Tries left: %d/%d\n", tries, max_guess);
+        }
+
+        if(tries == max_guess){
+            printf("You run out of Guess Better luck next Time!\n");
+            prinf("[GAMEOVER]\n");
+        }
     }
 }
 
@@ -54,11 +72,10 @@ int main(void){
     printf("2. Exit\n");
     scanf("%d", &choice);
 
-
     if (choice == 1){
         printf("Starting game\n");
-        loading_animation();
-        printf("# 1 Guess only \n");
+        // loading_animation();
+        printf("# 5 Guess only \n");
         guess();
     } else if (choice == 2) {
         printf("Exiting program. Goodbye!\n");
@@ -75,8 +92,8 @@ int main(void){
  Add a guess turn or retries 5x
  add a while loop for the ff:
  menu choice
- guess
- add hints
+ guess - done
+ add hints - done
  improve scoring for more fun
  file handling for user local saved progress so score keep coming up
  more improve txt and UI
