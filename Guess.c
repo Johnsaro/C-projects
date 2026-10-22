@@ -12,6 +12,7 @@ void loading_animation() {
         Sleep(1000);
     }
     printf("\n");
+    system("cls");
 } 
 
 
@@ -25,7 +26,9 @@ void guess() {
     int default_score = 0;
     int correct_score = 30;
     int new_score = default_score + correct_score;
-    int user_guess;
+
+    int user_guess; // user input
+
     int tries = 0;
     int max_guess = 5;
 
@@ -37,26 +40,31 @@ void guess() {
 
     while (user_guess != correct_number && tries < max_guess) {
         printf("Your guess: ");
-        scanf("%d", &user_guess);
-        if (user_guess < correct_number) {
-            printf("[HINT] Guess is too low!\n");
-            tries++;
-        } else {
-            printf("[HINT] Guess is too high!\n");
-            tries++;
+
+        while (scanf("%d", &user_guess) != 1) {
+            printf("[warning] Enter Number from 1-100!\n");
+            while(getchar() != '\n');
         }
+    
 
         if (user_guess == correct_number) {
             printf("You Guess the Correct Number in %d tries!\n", tries);
             printf("You Win!, Congratulations\n");
             break;
         } else {
+            if (user_guess < correct_number) {
+            printf("[HINT] Guess is too low!\n");
+            tries++;
+            } else {
+                printf("[HINT] Guess is too high!\n");
+                tries++;
+            }
             printf("Tries left: %d/%d\n", tries, max_guess);
         }
 
         if(tries == max_guess){
             printf("You run out of Guess Better luck next Time!\n");
-            prinf("[GAMEOVER]\n");
+            printf("[GAMEOVER]\n");
         }
     }
 }
@@ -70,11 +78,15 @@ int main(void){
     printf("Project Number 1: Number Guessing Game\n");
     printf("1. Start\n");
     printf("2. Exit\n");
-    scanf("%d", &choice);
+
+    while (scanf("%d", &choice) != 1) {
+        printf("Invalid Pls enter a number!\n");
+        while (getchar() != '\n');
+    } 
 
     if (choice == 1){
         printf("Starting game\n");
-        // loading_animation();
+        loading_animation();
         printf("# 5 Guess only \n");
         guess();
     } else if (choice == 2) {
@@ -99,3 +111,4 @@ int main(void){
  more improve txt and UI
 
 */
+
