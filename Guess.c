@@ -30,6 +30,7 @@ int score(int wrong_guesses){
 }
 
 
+
 void guess() {
     int default_score = 0;
 
@@ -37,15 +38,7 @@ void guess() {
 
     int tries = 0;
     int max_guess = 5;
-    
     int correct_number = generate_random_number();
-
-
-
-    printf("[DEBUG] Tries: %d/%d\n",tries, max_guess);
-    printf("[DEBUG] defualt_score: %d\n", default_score);
-    printf("[DEBUG] The correct number is: %d\n", correct_number);
-
 
     while (user_guess != correct_number && tries < max_guess) {
         printf("Your guess: ");
@@ -61,6 +54,7 @@ void guess() {
             printf("You Guess the Correct Number in %d tries!\n", tries);
             printf("You Win!, Congratulations\n");
             printf("+%d score\n",new_score);
+            
 
         } else {
             if(user_guess < 1 || user_guess > 100) {
@@ -87,15 +81,12 @@ void guess() {
 }
 
 
-
-
 int main(void){
     srand(time(NULL));
     int choice;
     int play_again = 1;
     int number_of_games = 1;
     
-
     printf("Project Number 1: Number Guessing Game\n");
     printf("1. Start\n");
     printf("2. Exit\n");
@@ -114,44 +105,41 @@ int main(void){
             guess();
             printf("\n[1] Play again    [2] Exit\n");
 
-            while(scanf("%d",&choice) !=1 ) {
+            // FIX 1: Read directly into play_again instead of choice
+            while(scanf("%d", &play_again) != 1) {
                 printf("[Warning] Enter 1 or 2 only!\n");
                 while(getchar() != '\n');
             }
+
+            // FIX 2: Handle invalid input if they type numbers other than 1 or 2
+            while (play_again != 1 && play_again != 2) {
+                printf("[Warning] Enter 1 or 2 only!\n");
+                printf("\n[1] Play again    [2] Exit\n");
+                while(scanf("%d", &play_again) != 1) {
+                    while(getchar() != '\n');
+                }
+            }
+
+            // Increment the game round tracker
             number_of_games++;
         }
-        printf("Exiting program. Goodbye!\n");
         
-
+        printf("Exiting program. Goodbye!\n");
 
     } else if (choice == 2) {
         printf("Exiting program. Goodbye!\n");
     } else {
         printf("Invalid choice! Please run again and type 1 or 2.\n");
     }
-
-
-
+    
     return 0;
 }
 
+
 // Next patch : 
 /*
- Need to clear the terminal after loading animation
- Add a guess turn or retries 5x
- add a while loop for the ff:
- menu choice
- guess - done
- add hints - done
- improve scoring for more fun
  file handling for user local saved progress so score keep coming up
  more improve txt and UI
 
 */
 
-/*
-fix gameover logic error
-- use while loop inside main to play again for both win or lose
-- added debug for number of play games
-
-*/
