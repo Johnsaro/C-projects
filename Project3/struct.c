@@ -26,8 +26,6 @@ int main(void) {
     scanf("%d", &consumer1.data_used);
 
 
-
-
     printf("\n\n========== POSTPAID BILL CALCULATOR ==========\n");
     printf("Customer: %s", consumer1.name); // Note: use %s for string 
     printf("Plan PHP %.2f\n", consumer1.plan_rate);
