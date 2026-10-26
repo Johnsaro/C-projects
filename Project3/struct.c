@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 
+// free plan package
+#define FREE_MINUTES 200
+#define FREE_SMS 100
+#define FREE_DATA 15
+
 typedef struct {
     char name[30];
     float plan_rate;
